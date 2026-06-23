@@ -35,6 +35,6 @@ export const loadCoachMessages = createServerFn({ method: "GET" })
     return (rows ?? []).map((r) => ({
       id: r.id as string,
       role: r.role as string,
-      parts: r.parts as unknown,
+      parts: JSON.parse(JSON.stringify(r.parts)) as Array<{ type: string; text?: string }>,
     }));
   });
