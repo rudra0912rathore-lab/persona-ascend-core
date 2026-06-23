@@ -1,6 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import type { UIMessage } from "ai";
 
 export const getOrCreateMainThread = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
@@ -34,8 +33,8 @@ export const loadCoachMessages = createServerFn({ method: "GET" })
       .order("created_at", { ascending: true });
     if (error) throw new Error(error.message);
     return (rows ?? []).map((r) => ({
-      id: r.id,
-      role: r.role as UIMessage["role"],
-      parts: r.parts as UIMessage["parts"],
-    })) as UIMessage[];
+      id: r.id as string,
+      role: r.role as string,
+      parts: r.parts as unknown,
+    }));
   });

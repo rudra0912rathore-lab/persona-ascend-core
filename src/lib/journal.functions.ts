@@ -51,7 +51,7 @@ export const createJournalEntry = createServerFn({ method: "POST" })
         user_id: context.userId,
         mood: data.mood,
         body: data.body,
-        ai_summary: summary,
+        ai_summary: summary as never,
       })
       .select("*")
       .single();
