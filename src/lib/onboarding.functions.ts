@@ -42,8 +42,8 @@ export const generateRoadmap = createServerFn({ method: "POST" })
       model,
       output: Output.object({ schema: RoadmapSchema }),
       system:
-        "You are Ascend, an elite AI life coach. Design a personalized growth roadmap. Be specific, motivating, and practical. Use the user's exact identity and goal in your reasoning. Avoid generic advice.",
-      prompt: `Future identity: ${data.future_identity}\nMain goal: ${data.main_goal}\n\nBuild a roadmap with 5 milestones spaced realistically, 4 starter daily challenges I can do TODAY, suggested skills to grow, and an opening insight that motivates me.`,
+        "You are Ascend, an elite AI life coach. Design a personalized growth roadmap. Be specific, motivating, and practical. Use the user's exact identity and goal. Avoid generic advice. Class should be an RPG-style archetype (Creator, Strategist, Warrior, Sage, etc.). Milestone reward_xp 50-1000, weeks_out 1-104. Challenge est_minutes 5-120, xp_reward 20-200.",
+      prompt: `Future identity: ${data.future_identity}\nMain goal: ${data.main_goal}\n\nReturn JSON with: main_goal, class, 4-6 milestones spaced realistically, 3-5 starter daily challenges I can do TODAY, 2-5 skills to grow, and an opening_insight that motivates me.`,
     });
 
     // Persist roadmap
