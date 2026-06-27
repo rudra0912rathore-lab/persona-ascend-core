@@ -68,7 +68,7 @@ function Onboarding() {
             <div
               key={i}
               className={`h-1.5 rounded-full transition-all ${
-                i === step ? "w-8 gradient-aurora" : i < step ? "w-1.5 bg-primary/60" : "w-1.5 bg-white/15"
+                i === step ? "w-8 gradient-aurora" : i < step ? "w-1.5 bg-primary/60" : "w-1.5 bg-muted"
               }`}
             />
           ))}
@@ -181,7 +181,7 @@ function Onboarding() {
 
 function Step({ label, done, active }: { label: string; done?: boolean; active?: boolean }) {
   return (
-    <div className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-3 rounded-xl bg-white/5 px-4 py-2.5">
+    <div className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-3 rounded-xl bg-muted px-4 py-2.5">
       {done ? (
         <Sparkles className="h-4 w-4 text-success" />
       ) : active ? (

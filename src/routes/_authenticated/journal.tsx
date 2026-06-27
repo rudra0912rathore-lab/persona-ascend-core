@@ -57,7 +57,7 @@ function JournalPage() {
                 key={m.k}
                 onClick={() => setMood(m.k)}
                 className={`grid h-12 w-12 place-items-center rounded-2xl text-2xl transition-all ${
-                  mood === m.k ? "gradient-aurora shadow-elegant scale-110" : "bg-white/5"
+                  mood === m.k ? "gradient-aurora shadow-elegant scale-110" : "bg-muted"
                 }`}
                 aria-label={m.k}
               >
