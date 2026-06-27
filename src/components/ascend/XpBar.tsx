@@ -13,7 +13,7 @@ export function XpBar({
         <span>{into} XP</span>
         <span>{perLevel} XP</span>
       </div>
-      <div className="h-2 w-full overflow-hidden rounded-full bg-white/5">
+      <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
         <div
           className="h-full rounded-full gradient-aurora"
           style={{ width: `${pct}%`, transition: "width 600ms cubic-bezier(0.2,0.8,0.2,1)" }}

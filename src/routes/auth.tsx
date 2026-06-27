@@ -79,7 +79,7 @@ function AuthPage() {
         </div>
 
         <form onSubmit={submit} className="mt-10 space-y-4 rounded-3xl glass p-5 shadow-card">
-          <div className="flex rounded-2xl bg-white/5 p-1 text-sm">
+          <div className="flex rounded-2xl bg-muted p-1 text-sm">
             <button
               type="button"
               onClick={() => setMode("signup")}
@@ -142,9 +142,9 @@ function AuthPage() {
           </button>
 
           <div className="relative my-1 flex items-center gap-3 text-[10px] uppercase tracking-wider text-muted-foreground/70">
-            <div className="h-px flex-1 bg-white/10" />
+            <div className="h-px flex-1 bg-muted" />
             or
-            <div className="h-px flex-1 bg-white/10" />
+            <div className="h-px flex-1 bg-muted" />
           </div>
 
           <button
@@ -182,7 +182,7 @@ function AuthPage() {
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <label className="block rounded-2xl bg-white/5 px-4 py-2.5">
+    <label className="block rounded-2xl bg-muted px-4 py-2.5">
       <div className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">{label}</div>
       <div className="mt-1">{children}</div>
     </label>

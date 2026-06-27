@@ -12,8 +12,8 @@ export function EmptyState({
   action?: ReactNode;
 }) {
   return (
-    <div className="rounded-3xl glass p-8 text-center">
-      <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl gradient-aurora text-white shadow-elegant">
+    <div className="rounded-3xl border border-border bg-card p-8 text-center shadow-card">
+      <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl gradient-aurora text-primary-foreground shadow-elegant">
         <Icon className="h-7 w-7" />
       </div>
       <h3 className="mt-4 text-base font-semibold">{title}</h3>

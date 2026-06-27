@@ -5,15 +5,32 @@ import { MobileShell, PageHeader } from "@/components/ascend/MobileShell";
 import { BottomNav } from "@/components/ascend/BottomNav";
 import { GlassCard } from "@/components/ascend/GlassCard";
 import { XpBar } from "@/components/ascend/XpBar";
-import { Trophy, Sparkles, LogOut, Share2, Target, BookOpen, Map } from "lucide-react";
+import {
+  Trophy,
+  Sparkles,
+  LogOut,
+  Share2,
+  Target,
+  BookOpen,
+  Map,
+  Users,
+  Crown,
+  Bell,
+  Settings as Cog,
+  Clock,
+  Pencil,
+  Sun,
+  Moon,
+} from "lucide-react";
 import { getProfile } from "@/lib/profile.functions";
-import { listAchievements } from "@/lib/data.functions";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { shareGrowthCard } from "@/lib/growth-card";
 import { useState } from "react";
+import { useTheme } from "@/lib/theme";
 
 export const Route = createFileRoute("/_authenticated/profile")({
+  ssr: false,
   head: () => ({ meta: [{ title: "Profile · Ascend AI" }] }),
   component: ProfilePage,
 });
@@ -21,11 +38,11 @@ export const Route = createFileRoute("/_authenticated/profile")({
 function ProfilePage() {
   const navigate = useNavigate();
   const profileFn = useServerFn(getProfile);
-  const achFn = useServerFn(listAchievements);
   const profile = useQuery({ queryKey: ["profile"], queryFn: () => profileFn() });
-  const ach = useQuery({ queryKey: ["achievements"], queryFn: () => achFn() });
   const p = profile.data;
   const [sharing, setSharing] = useState(false);
+  const [theme, , toggleTheme] = useTheme();
+  const isDark = theme === "dark";
 
   async function shareCard() {
     if (!p || sharing) return;
@@ -51,22 +68,32 @@ function ProfilePage() {
     }
   }
 
-
   async function signOut() {
     await supabase.auth.signOut();
-    navigate({ to: "/auth", replace: true });
+    navigate({ to: "/welcome", replace: true });
   }
 
   return (
     <MobileShell>
-      <PageHeader title="Profile" />
+      <PageHeader
+        title="Profile"
+        right={
+          <button
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+            className="grid h-9 w-9 place-items-center rounded-full border border-border bg-card"
+          >
+            {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          </button>
+        }
+      />
 
       <div className="space-y-4 px-5 pb-32">
-        {/* Identity card */}
+        {/* Identity */}
         <GlassCard glow className="relative overflow-hidden">
-          <div className="pointer-events-none absolute -top-12 -right-12 h-36 w-36 rounded-full bg-primary/30 blur-3xl" />
-          <div className="relative grid grid-cols-[auto_minmax(0,1fr)] items-center gap-4">
-            <div className="grid h-16 w-16 place-items-center rounded-2xl gradient-aurora text-xl font-bold text-white shadow-elegant">
+          <div className="pointer-events-none absolute -top-12 -right-12 h-36 w-36 rounded-full bg-primary/25 blur-3xl" />
+          <div className="relative grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-4">
+            <div className="grid h-16 w-16 place-items-center rounded-2xl gradient-aurora text-xl font-bold text-primary-foreground shadow-elegant">
               {(p?.username ?? "A").slice(0, 1).toUpperCase()}
             </div>
             <div className="min-w-0">
@@ -75,17 +102,26 @@ function ProfilePage() {
                 Level {p?.level ?? 1} · {p?.rank ?? "Novice"} · {p?.class ?? "Seeker"}
               </div>
             </div>
+            <Link
+              to="/edit-profile"
+              aria-label="Edit profile"
+              className="grid h-10 w-10 place-items-center rounded-2xl border border-border bg-card text-foreground"
+            >
+              <Pencil className="h-4 w-4" />
+            </Link>
           </div>
           <div className="mt-4">
             <XpBar xp={p?.xp ?? 0} />
           </div>
         </GlassCard>
 
-        {/* Growth card */}
+        {/* Growth card share */}
         <GlassCard>
           <div className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-3">
             <div className="min-w-0">
-              <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Growth card</div>
+              <div className="text-[10px] uppercase tracking-wider text-muted-foreground">
+                Growth card
+              </div>
               <p className="mt-2 text-sm text-muted-foreground">
                 {p?.future_identity ?? "Define your future identity in the Coach."}
               </p>
@@ -99,49 +135,41 @@ function ProfilePage() {
               onClick={shareCard}
               disabled={sharing}
               aria-label="Share growth card"
-              className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl gradient-aurora text-white shadow-elegant transition-transform active:scale-95 disabled:opacity-60"
+              className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl gradient-aurora text-primary-foreground shadow-elegant transition-transform active:scale-95 disabled:opacity-60"
             >
               <Share2 className={`h-4 w-4 ${sharing ? "animate-pulse" : ""}`} />
             </button>
-
           </div>
         </GlassCard>
 
         {/* Quick links */}
         <div className="grid grid-cols-3 gap-3">
-          <SubLink to="/journey" icon={Map} label="Journey" />
-          <SubLink to="/skills" icon={Trophy} label="Skills" />
-          <SubLink to="/journal" icon={BookOpen} label="Journal" />
-          <SubLink to="/reality-check" icon={Target} label="Reality" />
-          <SubLink to="/future-you" icon={Sparkles} label="Future You" />
+          <SubLink to="/achievements" icon={Trophy} label="Achievements" />
+          <SubLink to="/leaderboard" icon={Crown} label="Leaderboard" />
+          <SubLink to="/friends" icon={Users} label="Friends" />
+          <SubLink to="/timeline" icon={Clock} label="Timeline" />
+          <SubLink to="/notifications" icon={Bell} label="Notifs" />
+          <SubLink to="/subscription" icon={Sparkles} label="Premium" />
         </div>
 
-        {/* Achievements */}
-        <section>
-          <h3 className="mb-3 px-1 text-sm font-semibold">Achievements</h3>
-          {(ach.data ?? []).length === 0 ? (
-            <GlassCard className="text-center">
-              <Trophy className="mx-auto h-6 w-6 text-muted-foreground" />
-              <p className="mt-2 text-sm text-muted-foreground">No achievements yet. Keep going.</p>
-            </GlassCard>
-          ) : (
-            <div className="grid grid-cols-2 gap-3">
-              {(ach.data ?? []).map((a) => (
-                <GlassCard key={a.id} className="text-center">
-                  <Trophy className="mx-auto h-6 w-6 text-primary" />
-                  <div className="mt-2 text-sm font-semibold">{a.title}</div>
-                  {a.description ? (
-                    <div className="mt-1 text-xs text-muted-foreground">{a.description}</div>
-                  ) : null}
-                </GlassCard>
-              ))}
-            </div>
-          )}
-        </section>
+        <div className="grid grid-cols-3 gap-3">
+          <SubLink to="/journey" icon={Map} label="Journey" />
+          <SubLink to="/journal" icon={BookOpen} label="Journal" />
+          <SubLink to="/reality-check" icon={Target} label="Reality" />
+        </div>
+
+        <Link
+          to="/settings"
+          className="grid w-full grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 rounded-2xl border border-border bg-card px-4 py-3.5 text-sm font-medium"
+        >
+          <Cog className="h-4 w-4" />
+          <span className="text-left">Settings</span>
+          <span className="text-xs text-muted-foreground">›</span>
+        </Link>
 
         <button
           onClick={signOut}
-          className="grid w-full grid-cols-[auto_minmax(0,1fr)] items-center gap-3 rounded-2xl glass px-4 py-3.5 text-sm font-medium text-destructive"
+          className="grid w-full grid-cols-[auto_minmax(0,1fr)] items-center gap-3 rounded-2xl border border-border bg-card px-4 py-3.5 text-sm font-medium text-destructive"
         >
           <LogOut className="h-4 w-4" /> <span className="text-left">Sign out</span>
         </button>
@@ -154,7 +182,7 @@ function ProfilePage() {
 
 function Mini({ label, value }: { label: string; value: string | number }) {
   return (
-    <div className="rounded-xl bg-white/5 px-2 py-2 text-center">
+    <div className="rounded-xl bg-muted px-2 py-2 text-center">
       <div className="text-[10px] uppercase tracking-wider text-muted-foreground">{label}</div>
       <div className="mt-0.5 text-sm font-semibold">{value}</div>
     </div>
@@ -166,12 +194,26 @@ function SubLink({
   icon: Icon,
   label,
 }: {
-  to: "/journey" | "/skills" | "/journal" | "/reality-check" | "/future-you";
+  to:
+    | "/journey"
+    | "/skills"
+    | "/journal"
+    | "/reality-check"
+    | "/future-you"
+    | "/achievements"
+    | "/leaderboard"
+    | "/friends"
+    | "/timeline"
+    | "/notifications"
+    | "/subscription";
   icon: typeof Trophy;
   label: string;
 }) {
   return (
-    <Link to={to} className="rounded-2xl glass p-3 text-center transition-transform active:scale-[0.97]">
+    <Link
+      to={to}
+      className="rounded-2xl border border-border bg-card p-3 text-center transition-transform active:scale-[0.97]"
+    >
       <Icon className="mx-auto h-5 w-5 text-primary" />
       <div className="mt-1.5 text-xs font-medium">{label}</div>
     </Link>

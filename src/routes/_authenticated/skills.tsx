@@ -47,7 +47,7 @@ function SkillsPage() {
                       <span className="text-muted-foreground">Lv {s.level}</span>
                       <span className="text-primary font-semibold">{s.xp} XP</span>
                     </div>
-                    <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-white/5">
+                    <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-muted">
                       <div className="h-full gradient-aurora rounded-full" style={{ width: `${pct}%` }} />
                     </div>
                   </div>
