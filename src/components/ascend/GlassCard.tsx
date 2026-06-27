@@ -9,7 +9,7 @@ export function GlassCard({
   return (
     <div
       className={cn(
-        "rounded-3xl glass p-5 shadow-card",
+        "rounded-3xl border border-border bg-card p-5 shadow-card",
         glow && "shadow-elegant",
         className,
       )}

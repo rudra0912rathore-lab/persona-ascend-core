@@ -12,7 +12,7 @@ export function StatTile({
   accent?: string;
 }) {
   return (
-    <div className="rounded-2xl glass p-4">
+    <div className="rounded-2xl border border-border bg-card p-4">
       <div className="flex items-center justify-between">
         <span className="text-xs uppercase tracking-wide text-muted-foreground">{label}</span>
         <Icon className="h-4 w-4 text-primary" />

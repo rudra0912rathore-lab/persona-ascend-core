@@ -21,15 +21,15 @@ export function ProgressRing({
       <svg width={size} height={size} className="-rotate-90">
         <defs>
           <linearGradient id="aurora-ring" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#7B61FF" />
-            <stop offset="100%" stopColor="#5A8DFF" />
+            <stop offset="0%" stopColor="#E8745C" />
+            <stop offset="100%" stopColor="#F09684" />
           </linearGradient>
         </defs>
         <circle
           cx={size / 2}
           cy={size / 2}
           r={r}
-          stroke="rgba(255,255,255,0.08)"
+          stroke="var(--color-muted)"
           strokeWidth={stroke}
           fill="none"
         />

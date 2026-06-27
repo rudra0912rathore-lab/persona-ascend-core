@@ -40,7 +40,7 @@ export function ChallengeCard({
   return (
     <div
       className={cn(
-        "relative overflow-hidden rounded-3xl glass p-4 shadow-card transition-all",
+        "relative overflow-hidden rounded-3xl border border-border bg-card p-4 shadow-card transition-all",
         completed && "opacity-60",
       )}
     >
@@ -51,7 +51,12 @@ export function ChallengeCard({
             <span className="inline-flex items-center gap-1">
               <Clock className="h-3.5 w-3.5" /> {challenge.est_minutes}m
             </span>
-            <span className={cn("inline-flex items-center gap-1 font-medium", diffColor[challenge.difficulty] ?? "text-muted-foreground")}>
+            <span
+              className={cn(
+                "inline-flex items-center gap-1 font-medium",
+                diffColor[challenge.difficulty] ?? "text-muted-foreground",
+              )}
+            >
               <Flame className="h-3.5 w-3.5" /> {challenge.difficulty}
             </span>
             <span className="inline-flex items-center gap-1 text-primary">
@@ -67,7 +72,7 @@ export function ChallengeCard({
             "grid h-11 w-11 shrink-0 place-items-center rounded-full transition-all",
             completed
               ? "bg-success/15 text-success"
-              : "gradient-aurora text-white shadow-elegant active:scale-95",
+              : "gradient-aurora text-primary-foreground shadow-elegant active:scale-95",
           )}
         >
           <Check className="h-5 w-5" strokeWidth={2.6} />
