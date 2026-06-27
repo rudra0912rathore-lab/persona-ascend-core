@@ -140,7 +140,37 @@ function AuthPage() {
             <Sparkles className="h-4 w-4" />
             {mode === "signup" ? "Start your journey" : "Continue"}
           </button>
+
+          <div className="relative my-1 flex items-center gap-3 text-[10px] uppercase tracking-wider text-muted-foreground/70">
+            <div className="h-px flex-1 bg-white/10" />
+            or
+            <div className="h-px flex-1 bg-white/10" />
+          </div>
+
+          <button
+            type="button"
+            disabled={busy}
+            onClick={async () => {
+              setBusy(true);
+              try {
+                const result = await lovable.auth.signInWithOAuth("google", {
+                  redirect_uri: window.location.origin,
+                });
+                if (result.error) throw result.error;
+                if (result.redirected) return;
+                navigate({ to: "/home", replace: true });
+              } catch (err) {
+                toast.error(err instanceof Error ? err.message : "Google sign-in failed");
+                setBusy(false);
+              }
+            }}
+            className="inline-flex w-full items-center justify-center gap-3 rounded-2xl bg-white px-5 py-3.5 text-base font-semibold text-neutral-900 shadow-elegant transition active:scale-[0.98] disabled:opacity-60"
+          >
+            <GoogleIcon />
+            Continue with Google
+          </button>
         </form>
+
 
         <p className="mt-auto pt-10 text-center text-xs text-muted-foreground">
           By continuing you accept the path of growth.
