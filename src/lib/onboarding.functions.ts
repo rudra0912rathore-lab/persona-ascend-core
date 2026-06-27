@@ -6,31 +6,25 @@ import { createLovableAiGatewayProvider } from "@/lib/ai-gateway.server";
 
 const RoadmapSchema = z.object({
   main_goal: z.string(),
-  class: z.string().describe("RPG-style class like Creator, Strategist, Warrior, Sage"),
-  milestones: z
-    .array(
-      z.object({
-        title: z.string(),
-        description: z.string(),
-        reward_xp: z.number().int().min(50).max(1000),
-        weeks_out: z.number().int().min(1).max(104),
-      }),
-    )
-    .min(4)
-    .max(7),
-  starter_challenges: z
-    .array(
-      z.object({
-        name: z.string(),
-        difficulty: z.enum(["easy", "medium", "hard"]),
-        est_minutes: z.number().int().min(5).max(120),
-        xp_reward: z.number().int().min(20).max(200),
-        impact: z.enum(["low", "medium", "high"]),
-      }),
-    )
-    .min(3)
-    .max(6),
-  skills: z.array(z.string()).min(2).max(6),
+  class: z.string(),
+  milestones: z.array(
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      reward_xp: z.number(),
+      weeks_out: z.number(),
+    }),
+  ),
+  starter_challenges: z.array(
+    z.object({
+      name: z.string(),
+      difficulty: z.enum(["easy", "medium", "hard"]),
+      est_minutes: z.number(),
+      xp_reward: z.number(),
+      impact: z.enum(["low", "medium", "high"]),
+    }),
+  ),
+  skills: z.array(z.string()),
   opening_insight: z.string(),
 });
 
