@@ -97,11 +97,13 @@ function ProfilePage() {
             </div>
             <button
               onClick={shareCard}
+              disabled={sharing}
               aria-label="Share growth card"
-              className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl gradient-aurora text-white shadow-elegant"
+              className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl gradient-aurora text-white shadow-elegant transition-transform active:scale-95 disabled:opacity-60"
             >
-              <Share2 className="h-4 w-4" />
+              <Share2 className={`h-4 w-4 ${sharing ? "animate-pulse" : ""}`} />
             </button>
+
           </div>
         </GlassCard>
 
