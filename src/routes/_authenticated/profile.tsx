@@ -10,6 +10,8 @@ import { getProfile } from "@/lib/profile.functions";
 import { listAchievements } from "@/lib/data.functions";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { shareGrowthCard } from "@/lib/growth-card";
+import { useState } from "react";
 
 export const Route = createFileRoute("/_authenticated/profile")({
   head: () => ({ meta: [{ title: "Profile · Ascend AI" }] }),
@@ -23,19 +25,32 @@ function ProfilePage() {
   const profile = useQuery({ queryKey: ["profile"], queryFn: () => profileFn() });
   const ach = useQuery({ queryKey: ["achievements"], queryFn: () => achFn() });
   const p = profile.data;
+  const [sharing, setSharing] = useState(false);
 
   async function shareCard() {
-    if (!p) return;
-    const text = `I'm Level ${p.level} ${p.class} on Ascend AI — ${p.streak}-day streak, ${p.xp} XP. Building toward: ${p.future_identity ?? p.main_goal ?? "my best self"}.`;
-    if (navigator.share) {
-      try {
-        await navigator.share({ title: "Ascend AI", text });
-      } catch {}
-    } else {
-      await navigator.clipboard.writeText(text);
-      toast.success("Growth card copied");
+    if (!p || sharing) return;
+    setSharing(true);
+    try {
+      const result = await shareGrowthCard({
+        username: p.username ?? "Seeker",
+        level: p.level ?? 1,
+        rank: p.rank ?? "Novice",
+        cls: p.class ?? "Seeker",
+        xp: p.xp ?? 0,
+        streak: p.streak ?? 0,
+        longestStreak: p.longest_streak ?? 0,
+        goal: p.main_goal ?? "",
+        futureIdentity: p.future_identity ?? "",
+      });
+      toast.success(result === "shared" ? "Growth card shared" : "Growth card saved");
+    } catch (e) {
+      toast.error("Couldn't share growth card");
+      console.error(e);
+    } finally {
+      setSharing(false);
     }
   }
+
 
   async function signOut() {
     await supabase.auth.signOut();
