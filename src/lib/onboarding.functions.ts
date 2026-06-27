@@ -6,31 +6,25 @@ import { createLovableAiGatewayProvider } from "@/lib/ai-gateway.server";
 
 const RoadmapSchema = z.object({
   main_goal: z.string(),
-  class: z.string().describe("RPG-style class like Creator, Strategist, Warrior, Sage"),
-  milestones: z
-    .array(
-      z.object({
-        title: z.string(),
-        description: z.string(),
-        reward_xp: z.number().int().min(50).max(1000),
-        weeks_out: z.number().int().min(1).max(104),
-      }),
-    )
-    .min(4)
-    .max(7),
-  starter_challenges: z
-    .array(
-      z.object({
-        name: z.string(),
-        difficulty: z.enum(["easy", "medium", "hard"]),
-        est_minutes: z.number().int().min(5).max(120),
-        xp_reward: z.number().int().min(20).max(200),
-        impact: z.enum(["low", "medium", "high"]),
-      }),
-    )
-    .min(3)
-    .max(6),
-  skills: z.array(z.string()).min(2).max(6),
+  class: z.string(),
+  milestones: z.array(
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      reward_xp: z.number(),
+      weeks_out: z.number(),
+    }),
+  ),
+  starter_challenges: z.array(
+    z.object({
+      name: z.string(),
+      difficulty: z.enum(["easy", "medium", "hard"]),
+      est_minutes: z.number(),
+      xp_reward: z.number(),
+      impact: z.enum(["low", "medium", "high"]),
+    }),
+  ),
+  skills: z.array(z.string()),
   opening_insight: z.string(),
 });
 
@@ -48,8 +42,8 @@ export const generateRoadmap = createServerFn({ method: "POST" })
       model,
       output: Output.object({ schema: RoadmapSchema }),
       system:
-        "You are Ascend, an elite AI life coach. Design a personalized growth roadmap. Be specific, motivating, and practical. Use the user's exact identity and goal in your reasoning. Avoid generic advice.",
-      prompt: `Future identity: ${data.future_identity}\nMain goal: ${data.main_goal}\n\nBuild a roadmap with 5 milestones spaced realistically, 4 starter daily challenges I can do TODAY, suggested skills to grow, and an opening insight that motivates me.`,
+        "You are Ascend, an elite AI life coach. Design a personalized growth roadmap. Be specific, motivating, and practical. Use the user's exact identity and goal. Avoid generic advice. Class should be an RPG-style archetype (Creator, Strategist, Warrior, Sage, etc.). Milestone reward_xp 50-1000, weeks_out 1-104. Challenge est_minutes 5-120, xp_reward 20-200.",
+      prompt: `Future identity: ${data.future_identity}\nMain goal: ${data.main_goal}\n\nReturn JSON with: main_goal, class, 4-6 milestones spaced realistically, 3-5 starter daily challenges I can do TODAY, 2-5 skills to grow, and an opening_insight that motivates me.`,
     });
 
     // Persist roadmap
