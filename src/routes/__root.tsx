@@ -7,11 +7,12 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Toaster } from "@/components/ui/sonner";
+import { themeInitScript, getInitialTheme, type Theme } from "@/lib/theme";
 
 function NotFoundComponent() {
   return (
@@ -25,7 +26,7 @@ function NotFoundComponent() {
         <div className="mt-6">
           <Link
             to="/"
-            className="inline-flex items-center justify-center rounded-2xl gradient-aurora px-5 py-2.5 text-sm font-semibold text-white shadow-elegant"
+            className="inline-flex items-center justify-center rounded-2xl gradient-aurora px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-elegant"
           >
             Return home
           </Link>
@@ -55,7 +56,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
               router.invalidate();
               reset();
             }}
-            className="inline-flex items-center justify-center rounded-2xl gradient-aurora px-5 py-2.5 text-sm font-semibold text-white shadow-elegant"
+            className="inline-flex items-center justify-center rounded-2xl gradient-aurora px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-elegant"
           >
             Try again
           </button>
@@ -76,14 +77,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
-      { name: "theme-color", content: "#0D0D0D" },
-      { title: "Ascend AI — Level up your real life" },
+      { name: "theme-color", content: "#1F1B1A" },
+      { title: "Ascend AI — Become the person you want to be" },
       {
         name: "description",
         content:
           "Ascend AI is a personal growth RPG. Turn your goals into a daily journey with AI coaching, challenges, and progression that actually changes your life.",
       },
-      { property: "og:title", content: "Ascend AI — Level up your real life" },
+      { property: "og:title", content: "Ascend AI — Become the person you want to be" },
       {
         property: "og:description",
         content: "AI-powered personal growth RPG. Become the person you want to be.",
@@ -92,6 +93,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "stylesheet", href: appCss }],
+    scripts: [{ children: themeInitScript }],
   }),
   shellComponent: RootShell,
   component: RootComponent,
@@ -105,7 +107,7 @@ function RootShell({ children }: { children: ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body className="dark">
+      <body>
         {children}
         <Scripts />
       </body>
@@ -115,11 +117,30 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const [theme, setTheme] = useState<Theme>("dark");
+  useEffect(() => {
+    setTheme(getInitialTheme());
+    const onStorage = (e: StorageEvent) => {
+      if (e.key === "ascend-theme" && (e.newValue === "light" || e.newValue === "dark")) {
+        setTheme(e.newValue);
+      }
+    };
+    window.addEventListener("storage", onStorage);
+    // Re-read after each render cycle (cheap; ensures toaster theme matches)
+    const id = setInterval(() => {
+      const cur = document.documentElement.classList.contains("light") ? "light" : "dark";
+      setTheme((t) => (t === cur ? t : (cur as Theme)));
+    }, 800);
+    return () => {
+      window.removeEventListener("storage", onStorage);
+      clearInterval(id);
+    };
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
       <Outlet />
-      <Toaster theme="dark" position="top-center" />
+      <Toaster theme={theme} position="top-center" />
     </QueryClientProvider>
   );
 }
