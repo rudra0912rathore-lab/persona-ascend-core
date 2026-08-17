@@ -169,6 +169,28 @@ function AuthPage() {
             <GoogleIcon />
             Continue with Google
           </button>
+
+          <button
+            type="button"
+            disabled={busy}
+            onClick={async () => {
+              setBusy(true);
+              try {
+                const { error } = await supabase.auth.signInWithOAuth({
+                  provider: "facebook",
+                  options: { redirectTo: window.location.origin },
+                });
+                if (error) throw error;
+              } catch (err) {
+                toast.error(err instanceof Error ? err.message : "Facebook sign-in failed");
+                setBusy(false);
+              }
+            }}
+            className="inline-flex w-full items-center justify-center gap-3 rounded-2xl bg-white px-5 py-3.5 text-base font-semibold text-neutral-900 shadow-elegant transition active:scale-[0.98] disabled:opacity-60"
+          >
+            <FacebookIcon />
+            Continue with Facebook
+          </button>
         </form>
 
 
@@ -197,6 +219,14 @@ function GoogleIcon() {
       <path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 16 19 13 24 13c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/>
       <path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2c-2 1.5-4.5 2.4-7.2 2.4-5.3 0-9.7-3.3-11.3-8L6.2 33C9.5 39.6 16.2 44 24 44z"/>
       <path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.1-4.1 5.5l6.2 5.2C41.4 35.7 44 30.3 44 24c0-1.3-.1-2.3-.4-3.5z"/>
+    </svg>
+  );
+}
+
+function FacebookIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true">
+      <path fill="#1877F2" d="M48 24C48 10.745 37.255 0 24 0S0 10.745 0 24c0 11.98 8.776 21.908 20.25 23.708v-16.77h-6.094V24h6.094v-5.288c0-6.014 3.583-9.337 9.065-9.337 2.627 0 5.375.469 5.375.469v5.907h-3.028c-2.982 0-3.912 1.85-3.912 3.75V24h6.657l-1.064 6.938h-5.593v16.77C39.224 45.908 48 35.98 48 24z"/>
     </svg>
   );
 }
