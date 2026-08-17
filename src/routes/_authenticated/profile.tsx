@@ -88,7 +88,7 @@ function ProfilePage() {
         }
       />
 
-      <div className="space-y-4 px-5 pb-32">
+      <div className="space-y-4 px-5 pb-32 lg:mx-auto lg:w-full lg:max-w-6xl lg:px-10 lg:pb-12">
         {/* Identity */}
         <GlassCard glow className="relative overflow-hidden">
           <div className="pointer-events-none absolute -top-12 -right-12 h-36 w-36 rounded-full bg-primary/25 blur-3xl" />

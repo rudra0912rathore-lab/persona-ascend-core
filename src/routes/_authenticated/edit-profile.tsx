@@ -60,7 +60,7 @@ function EditProfilePage() {
           </Link>
         }
       />
-      <div className="space-y-4 px-5 pb-32">
+      <div className="space-y-4 px-5 pb-32 lg:mx-auto lg:w-full lg:max-w-6xl lg:px-10 lg:pb-12">
         <GlassCard className="flex flex-col items-center text-center">
           <div className="grid h-20 w-20 place-items-center rounded-full gradient-aurora text-2xl font-bold text-primary-foreground shadow-elegant">
             {(username || "A").slice(0, 1).toUpperCase()}

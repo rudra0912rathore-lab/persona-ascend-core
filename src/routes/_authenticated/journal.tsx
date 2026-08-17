@@ -48,7 +48,7 @@ function JournalPage() {
         right={<Link to="/home" className="text-xs text-primary">Done</Link>}
       />
 
-      <div className="space-y-4 px-5 pb-32">
+      <div className="space-y-4 px-5 pb-32 lg:mx-auto lg:w-full lg:max-w-6xl lg:px-10 lg:pb-12">
         <GlassCard>
           <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Mood</div>
           <div className="mt-3 flex justify-between">

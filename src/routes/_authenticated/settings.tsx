@@ -63,7 +63,7 @@ function SettingsPage() {
           </Link>
         }
       />
-      <div className="space-y-5 px-5 pb-32">
+      <div className="space-y-5 px-5 pb-32 lg:mx-auto lg:w-full lg:max-w-6xl lg:px-10 lg:pb-12">
         {groups.map((g) => (
           <section key={g.label}>
             <h3 className="mb-2 px-1 text-[11px] uppercase tracking-wider text-muted-foreground">

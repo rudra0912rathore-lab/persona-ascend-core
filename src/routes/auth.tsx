@@ -67,8 +67,9 @@ function AuthPage() {
         <div className="absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-primary-glow/25 blur-3xl" />
       </div>
 
-      <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-[430px] flex-col px-6 py-10">
-        <div className="mt-6 flex flex-col items-center text-center">
+      <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-[430px] flex-col px-6 py-10 lg:max-w-6xl lg:justify-center">
+        <div className="lg:grid lg:grid-cols-2 lg:items-center lg:gap-14">
+          <div className="mt-6 flex flex-col items-center text-center lg:mt-0 lg:items-start lg:text-left">
           <AiOrb size={120} />
           <h1 className="mt-6 text-3xl font-semibold leading-tight">
             <span className="text-gradient-aurora">Ascend</span> AI
@@ -192,6 +193,7 @@ function AuthPage() {
             Continue with Facebook
           </button>
         </form>
+        </div>
 
 
         <p className="mt-auto pt-10 text-center text-xs text-muted-foreground">

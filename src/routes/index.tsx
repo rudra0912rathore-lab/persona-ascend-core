@@ -26,7 +26,7 @@ function SplashPage() {
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-background">
       <MountainBackdrop />
-      <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-[430px] flex-col items-center justify-center px-6 text-center">
+      <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-[430px] lg:max-w-3xl flex-col items-center justify-center px-6 text-center">
         <div className="flex items-center gap-2 animate-fade-up">
           <Sparkles className="h-6 w-6 text-primary" />
           <span className="text-3xl font-bold tracking-tight">

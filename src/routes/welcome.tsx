@@ -18,7 +18,7 @@ function WelcomePage() {
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-background">
       <MountainBackdrop />
-      <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-[430px] flex-col px-6 pt-14 pb-10">
+      <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-[430px] lg:max-w-3xl flex-col px-6 pt-14 pb-10">
         <div className="flex items-center gap-2 text-sm font-semibold text-foreground/80">
           <Sparkles className="h-4 w-4 text-primary" />
           ASCEND AI

@@ -25,7 +25,7 @@ function JourneyPage() {
     <MobileShell>
       <PageHeader title="Your Journey" subtitle={goal.data?.title ?? "Your roadmap to the future you."} />
 
-      <div className="flex-1 px-5 pb-32">
+      <div className="flex-1 px-5 pb-32 lg:mx-auto lg:w-full lg:max-w-6xl lg:px-10 lg:pb-12">
         {list.length === 0 ? (
           <EmptyState
             icon={Map}

@@ -22,7 +22,7 @@ function SkillsPage() {
     <MobileShell>
       <PageHeader title="Skill Hub" subtitle="Your evolving abilities." />
 
-      <div className="px-5 pb-32">
+      <div className="px-5 pb-32 lg:mx-auto lg:w-full lg:max-w-6xl lg:px-10 lg:pb-12">
         {list.length === 0 ? (
           <EmptyState
             icon={Trophy}
@@ -30,7 +30,7 @@ function SkillsPage() {
             message="Complete onboarding to unlock your starting skills."
           />
         ) : (
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-3 lg:grid-cols-3 xl:grid-cols-4">
             {list.map((s, i) => {
               const pct = Math.min(100, (s.xp % 200) / 2);
               return (

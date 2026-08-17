@@ -41,7 +41,7 @@ function AchievementsPage() {
           </Link>
         }
       />
-      <div className="px-5 pb-32">
+      <div className="px-5 pb-32 lg:mx-auto lg:w-full lg:max-w-6xl lg:px-10 lg:pb-12">
         <div className="mb-4 grid grid-cols-3 gap-1 rounded-2xl border border-border bg-card p-1">
           {(["all", "locked", "unlocked"] as Tab[]).map((t) => (
             <button

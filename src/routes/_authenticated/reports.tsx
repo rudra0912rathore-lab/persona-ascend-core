@@ -54,14 +54,15 @@ function ReportsPage() {
     <MobileShell>
       <PageHeader title="Reports" subtitle="Monthly evolution at a glance." />
 
-      <div className="space-y-4 px-5 pb-32">
-        <div className="grid grid-cols-2 gap-3">
+      <div className="space-y-4 px-5 pb-32 lg:mx-auto lg:w-full lg:max-w-6xl lg:px-10 lg:pb-12">
+        <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
           <StatTile icon={Zap} label="Total XP" value={profile.data?.xp ?? 0} />
           <StatTile icon={Flame} label="Streak" value={profile.data?.streak ?? 0} accent="days" />
           <StatTile icon={Trophy} label="Completed" value={totalCompleted} accent="all time" />
           <StatTile icon={Calendar} label="Journal" value={journal.data?.length ?? 0} accent="entries" />
         </div>
 
+        <div className="lg:grid lg:grid-cols-2 lg:gap-4">
         <GlassCard>
           <div className="mb-1 flex items-center justify-between">
             <h3 className="text-sm font-semibold">XP earned · last 7 days</h3>
@@ -107,6 +108,7 @@ function ReportsPage() {
             </ResponsiveContainer>
           </div>
         </GlassCard>
+        </div>
 
         <GlassCard>
           <h3 className="mb-3 text-sm font-semibold">This month's evolution</h3>

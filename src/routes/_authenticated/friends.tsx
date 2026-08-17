@@ -34,7 +34,7 @@ function FriendsPage() {
           </Link>
         }
       />
-      <div className="px-5 pb-32">
+      <div className="px-5 pb-32 lg:mx-auto lg:w-full lg:max-w-6xl lg:px-10 lg:pb-12">
         <div className="mb-3 flex items-center gap-2">
           <div className="grid grid-cols-2 gap-1 rounded-2xl border border-border bg-card p-1">
             {(["all", "online"] as const).map((t) => (

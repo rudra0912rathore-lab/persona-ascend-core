@@ -85,7 +85,7 @@ function HomePage() {
         cls={p?.class ?? "Seeker"}
       />
 
-      <div className="space-y-4 px-5 pb-32 pt-5">
+      <div className="space-y-4 px-5 pb-32 pt-5 lg:mx-auto lg:w-full lg:max-w-6xl lg:px-10 lg:pb-12 lg:pt-8">
         {/* Hero — Main goal */}
         <GlassCard glow className="overflow-hidden">
           <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4">
@@ -118,7 +118,7 @@ function HomePage() {
             <h3 className="text-base font-semibold">Today's challenges</h3>
             <Link to="/journal" className="text-xs text-primary">Journal →</Link>
           </div>
-          <div className="space-y-3">
+          <div className="space-y-3 lg:grid lg:grid-cols-2 lg:gap-4 lg:space-y-0">
             {todays.length === 0 ? (
               <EmptyState
                 icon={Sparkles}
@@ -152,7 +152,7 @@ function HomePage() {
         </GlassCard>
 
         {/* Stats grid */}
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
           <StatTile icon={Flame} label="Streak" value={p?.streak ?? 0} accent="days" />
           <StatTile icon={Zap} label="Total XP" value={p?.xp ?? 0} />
           <StatTile icon={Trophy} label="Completed" value={completed} accent="today" />

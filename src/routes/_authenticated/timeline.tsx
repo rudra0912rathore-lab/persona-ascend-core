@@ -31,7 +31,7 @@ function TimelinePage() {
           </Link>
         }
       />
-      <div className="px-5 pb-32">
+      <div className="px-5 pb-32 lg:mx-auto lg:w-full lg:max-w-6xl lg:px-10 lg:pb-12">
         <div className="relative pl-7">
           <span className="absolute left-2.5 top-1 bottom-1 w-px bg-border" />
           <div className="space-y-4">

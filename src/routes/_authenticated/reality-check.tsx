@@ -30,7 +30,7 @@ function RealityCheck() {
     <MobileShell>
       <PageHeader title="Reality Check" subtitle="An honest weekly look at your patterns." />
 
-      <div className="space-y-4 px-5 pb-32">
+      <div className="space-y-4 px-5 pb-32 lg:mx-auto lg:w-full lg:max-w-6xl lg:px-10 lg:pb-12">
         {!data && (
           <GlassCard glow className="text-center">
             <div className="mx-auto"><AiOrb size={120} /></div>

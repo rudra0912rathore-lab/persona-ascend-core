@@ -61,7 +61,7 @@ function Onboarding() {
         <div className="absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-primary-glow/25 blur-3xl" />
       </div>
 
-      <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-[430px] flex-col px-6 py-10">
+      <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-[430px] lg:max-w-3xl flex-col px-6 py-10">
         {/* Step dots */}
         <div className="mb-6 flex items-center justify-center gap-1.5">
           {[0, 1, 2, 3].map((i) => (

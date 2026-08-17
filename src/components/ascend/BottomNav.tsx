@@ -20,7 +20,7 @@ export function BottomNav() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   return (
-    <nav className="sticky bottom-0 z-30 mt-auto safe-bottom">
+    <nav className="sticky bottom-0 z-30 mt-auto safe-bottom lg:hidden">
       <div className="relative mx-3 mb-3 rounded-3xl border border-border bg-card/95 shadow-card backdrop-blur-xl">
         <div className="grid grid-cols-5 px-2 py-2">
           {items.map((item) => {
